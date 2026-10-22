@@ -1,0 +1,218 @@
+/**
+ * global.css
+ * ----------
+ * Global styles and CSS custom properties (design tokens).
+ *
+ * Organised into sections:
+ *  1. Google Fonts import
+ *  2. CSS variables (color palette, spacing, typography)
+ *  3. CSS reset / base styles
+ *  4. Stage 1 layout styles (landing / status page)
+ *
+ * Component-specific styles will be added as CSS Modules or additional
+ * CSS files alongside each component in future stages.
+ */
+
+/* ── 1. Fonts ─────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+
+/* ── 2. Design Tokens ────────────────────────────────────────────────── */
+:root {
+  /* Brand palette */
+  --color-primary:       #2563eb;  /* Government blue */
+  --color-primary-dark:  #1d4ed8;
+  --color-primary-light: #3b82f6;
+  --color-accent:        #0ea5e9;  /* Sky blue accent */
+
+  /* Status colors */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error:   #ef4444;
+  --color-info:    #6366f1;
+
+  /* Neutrals */
+  --color-bg:          #0f172a;   /* Dark navy background */
+  --color-bg-card:     #1e293b;   /* Card / surface */
+  --color-bg-elevated: #263348;   /* Elevated surfaces */
+  --color-border:      #334155;
+  --color-text:        #f1f5f9;   /* Primary text */
+  --color-text-muted:  #94a3b8;   /* Secondary / muted text */
+  --color-text-dim:    #64748b;
+
+  /* Typography */
+  --font-sans:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Space Grotesk', var(--font-sans);
+  --font-mono:    'Fira Code', 'Cascadia Code', monospace;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 30px rgba(37, 99, 235, 0.25);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+}
+
+/* ── 3. CSS Reset & Base ─────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+a {
+  color: var(--color-primary-light);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+code {
+  font-family: var(--font-mono);
+  background: var(--color-bg-elevated);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-size: 0.875em;
+  color: var(--color-accent);
+}
+
+img, svg { display: block; max-width: 100%; }
+
+/* ── 4. Stage 1 – Status Page Layout ────────────────────────────────── */
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-4);
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(37, 99, 235, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+    var(--color-bg);
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.header-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-4);
+  text-transform: uppercase;
+}
+
+.app-header h1 {
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  background: linear-gradient(135deg, var(--color-text) 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-2);
+}
+
+.subtitle {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+}
+
+.status-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  width: 100%;
+  max-width: 540px;
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.status-card h2 {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.status {
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.status.loading {
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.status.success {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: var(--color-text);
+}
+
+.status.error {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--color-text);
+}
+.status.error strong { color: var(--color-error); }
+.status.error .hint { color: var(--color-text-muted); font-size: 0.85rem; margin-top: var(--space-2); }
+
+.app-footer {
+  margin-top: var(--space-8);
+  text-align: center;
+  color: var(--color-text-dim);
+  font-size: 0.85rem;
+  line-height: 1.8;
+}
